@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Data Safety | Direct Access App</title>
+  <meta name="description" content="Data Safety and Privacy information for Direct Access App." />
+
+  <style>
+    :root{
+      --bg: #0b1220;
+      --card: rgba(255,255,255,.06);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.7);
+      --border: rgba(255,255,255,.14);
+      --accent: #22c55e;
+      --accent2: #60a5fa;
+      --shadow: 0 20px 50px rgba(0,0,0,.35);
+      --radius: 18px;
+      --max: 980px;
+    }
+    @media (prefers-color-scheme: light){
+      :root{
+        --bg: #f6f7fb;
+        --card: rgba(10,20,40,.04);
+        --text: rgba(10,20,40,.92);
+        --muted: rgba(10,20,40,.7);
+        --border: rgba(10,20,40,.12);
+        --shadow: 0 20px 50px rgba(10,20,40,.10);
+      }
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: radial-gradient(900px 600px at 10% 0%, rgba(96,165,250,.22), transparent 60%),
+                  radial-gradient(900px 600px at 90% 10%, rgba(34,197,94,.18), transparent 55%),
+                  var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+    }
+    a{color:inherit}
+    .wrap{max-width: var(--max); margin: 0 auto; padding: 28px 18px 60px;}
+    .topbar{
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+      padding: 10px 0 24px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px; text-decoration:none;
+    }
+    .logo{
+      width:40px; height:40px; border-radius: 12px;
+      background: linear-gradient(135deg, var(--accent2), var(--accent));
+      box-shadow: var(--shadow);
+    }
+    .brand h1{font-size: 16px; margin:0}
+    .chip{
+      border: 1px solid var(--border);
+      padding: 8px 12px; border-radius: 999px;
+      font-size: 12px; color: var(--muted);
+      background: rgba(255,255,255,.03);
+      backdrop-filter: blur(6px);
+    }
+
+    .hero{
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 22px;
+      overflow:hidden;
+      position:relative;
+    }
+    .hero:after{
+      content:"";
+      position:absolute; inset:-120px -120px auto auto;
+      width: 240px; height: 240px;
+      background: radial-gradient(circle at 30% 30%, rgba(96,165,250,.35), transparent 60%);
+      filter: blur(2px);
+      transform: rotate(20deg);
+      pointer-events:none;
+    }
+    .hero h2{margin: 0 0 6px; font-size: 28px; letter-spacing: -0.02em;}
+    .hero p{margin: 0; color: var(--muted); max-width: 70ch;}
+    .meta{
+      display:flex; flex-wrap:wrap; gap:10px; margin-top: 14px;
+    }
+    .meta .pill{
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.03);
+      padding: 8px 10px; border-radius: 999px;
+      font-size: 12px; color: var(--muted);
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 16px;
+      margin-top: 16px;
+    }
+    @media (max-width: 900px){
+      .grid{grid-template-columns: 1fr;}
+    }
+
+    .card{
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.04);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.18);
+    }
+    .card h3{margin: 0 0 10px; font-size: 18px;}
+    .card p{margin: 0 0 10px; color: var(--muted);}
+    .card ul{margin: 10px 0 0; padding-left: 18px; color: var(--muted);}
+    .card li{margin: 6px 0;}
+    .kvs{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .kv{
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: rgba(255,255,255,.03);
+    }
+    .kv b{display:block; font-size: 13px;}
+    .kv span{display:block; font-size: 12px; color: var(--muted); margin-top: 3px;}
+    .badge{
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 7px 10px; border-radius: 999px;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.03);
+      font-size: 12px; color: var(--muted);
+      margin: 4px 6px 0 0;
+    }
+    .dot{
+      width: 8px; height: 8px; border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 0 4px rgba(34,197,94,.15);
+    }
+    .dot.blue{
+      background: var(--accent2);
+      box-shadow: 0 0 0 4px rgba(96,165,250,.16);
+    }
+
+    .footer{
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 12px;
+      text-align:center;
+    }
+    .hr{
+      height: 1px; background: var(--border); margin: 14px 0;
+    }
+    code{
+      background: rgba(255,255,255,.06);
+      border: 1px solid var(--border);
+      padding: 2px 6px;
+      border-radius: 8px;
+      font-size: 12px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <a class="brand" href="#">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <h1>Direct Access App</h1>
+          <div style="font-size:12px;color:var(--muted)">Data Safety & Privacy</div>
+        </div>
+      </a>
+      <div class="chip">Last updated: January 19, 2026</div>
+    </div>
+
+    <section class="hero" aria-labelledby="title">
+      <h2 id="title">How Direct Access App keeps your data safe</h2>
+      <p>
+        This page explains what information we collect, why we collect it, how we protect it,
+        and the choices you have. We aim to keep things clear and simple.
+      </p>
+
+      <div class="meta" role="list">
+        <div class="pill" role="listitem">🔒 Encryption where applicable</div>
+        <div class="pill" role="listitem">🧾 Minimal data collection</div>
+        <div class="pill" role="listitem">🧑‍⚖️ User control & transparency</div>
+      </div>
+    </section>
+
+    <div class="grid">
+      <!-- LEFT COLUMN -->
+      <main class="card">
+        <h3>1) Data we may collect</h3>
+        <p>Direct Access App collects only what is needed to provide the service. Depending on features you use, we may collect:</p>
+        <ul>
+          <li><b>Account details:</b> name, email, phone number (if you create an account).</li>
+          <li><b>App usage data:</b> basic analytics like screens visited, feature usage, and error logs to improve performance.</li>
+          <li><b>Device information:</b> device model, OS version, app version (for troubleshooting and compatibility).</li>
+          <li><b>Content you provide:</b> forms you submit, messages, or uploads (only if the app has these features).</li>
+          <li><b>Location (optional):</b> only if you enable a feature that needs it, and you can turn it off anytime.</li>
+        </ul>
+
+        <div class="hr"></div>
+
+        <h3>2) How we use your data</h3>
+        <ul>
+          <li>To provide core app features (sign-in, saving your info, showing your records).</li>
+          <li>To improve the app (fix bugs, reduce crashes, make features faster).</li>
+          <li>To communicate with you (support requests, important service updates).</li>
+          <li>To prevent fraud and keep users safe (security monitoring and abuse prevention).</li>
+        </ul>
+
+        <div class="hr"></div>
+
+        <h3>3) Data sharing</h3>
+        <p>
+          We do <b>not</b> sell your personal data. We only share data when necessary, such as:
+        </p>
+        <ul>
+          <li><b>Service providers</b> (e.g., hosting, analytics) to run and improve the app.</li>
+          <li><b>Legal reasons</b> if required by law or to protect user safety.</li>
+          <li><b>With your consent</b> when you choose to connect to a third-party service.</li>
+        </ul>
+
+        <div class="hr"></div>
+
+        <h3>4) Security measures</h3>
+        <p>We use practical security controls to protect your data, including:</p>
+        <ul>
+          <li>Access control (only authorized staff can access systems when needed).</li>
+          <li>Secure authentication (password rules and session controls where applicable).</li>
+          <li>Encrypted connections (HTTPS) for data sent between the app and server.</li>
+          <li>Regular updates and monitoring to reduce vulnerabilities.</li>
+        </ul>
+
+        <div class="hr"></div>
+
+        <h3>5) Data retention</h3>
+        <p>
+          We keep your data only as long as needed for the app to work and to meet legal or operational requirements.
+          When data is no longer needed, it is deleted or anonymized.
+        </p>
+
+        <div class="hr"></div>
+
+        <h3>6) Your choices & controls</h3>
+        <ul>
+          <li>You can update or correct your account information in the app (if available).</li>
+          <li>You can disable permissions (like location) in your phone settings.</li>
+          <li>You can request export or deletion of your data by contacting us.</li>
+        </ul>
+
+        <div class="hr"></div>
+
+        <h3>7) Children’s privacy</h3>
+        <p>
+          Direct Access App is not designed to collect personal information from children without appropriate consent.
+          If you believe a child has provided personal data, contact us and we will take steps to remove it.
+        </p>
+
+        <div class="hr"></div>
+
+        <h3>8) Contact</h3>
+        <p>
+          If you have questions about data safety, contact us at:
+          <br />
+          <b>directacccessmoney@yahoo.com</b>
+        </p>
+      </main>
+
+      <!-- RIGHT COLUMN -->
+      <aside class="card">
+        <h3>Quick summary</h3>
+        <div class="kvs">
+          <div class="kv">
+            <b>We collect minimal data</b>
+            <span>Only what is needed to run the app and improve it.</span>
+          </div>
+          <div class="kv">
+            <b>We don’t sell personal data</b>
+            <span>We only share data when necessary (providers, legal, or with your consent).</span>
+          </div>
+          <div class="kv">
+            <b>You have control</b>
+            <span>You can manage permissions and request deletion/support.</span>
+          </div>
+        </div>
+
+        <div class="hr"></div>
+
+        <h3>Safety highlights</h3>
+        <div>
+          <span class="badge"><span class="dot"></span> Secure access controls</span>
+          <span class="badge"><span class="dot blue"></span> HTTPS connections</span>
+          <span class="badge"><span class="dot"></span> Monitoring & updates</span>
+        </div>
+
+        <div class="hr"></div>
+
+        <h3>Optional sections you can add</h3>
+        <ul>
+          <li>“Third-party services we use” (list them clearly)</li>
+          <li>“Cookies” (if you have a website login)</li>
+          <li>“International data transfers” (if hosting outside your country)</li>
+          <li>“How to delete your account” (step-by-step)</li>
+        </ul>
+      </aside>
+    </div>
+
+    <div class="footer">
+      © <span id="year"></span> Direct Access App. All rights reserved.
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
